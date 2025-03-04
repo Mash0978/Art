@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drawings</title>
+    <style>
+        img {
+            height:300px;
+            border: 2px solid grey;
+            border-radius:15px;
+        }
+        .images {
+            display:flex;
+            flex-wrap:nowrap;
+            justify-content:center;
+            margin-top:25px;
+        }
+        body {
+            background-color:black;
+            display:flex;
+            flex-direction:column;
+            align-items: center;
+
+        }
+        h2 {
+            color:white;
+        }
+         .slideshow-container {
+        backdrop-filter: blur(10px);
+        background-color: black;   border-radius: 12px;
+        width: 80%;
+        max-width: 500px;
+        height: 400px;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid grey;
+        border-radius: 10px;
+        display:flex;
+        flex-direction:row;
+    }
+    .slides {
+        display: flex;
+        transition: transform 1s ease-in-out;
+        width: 100%;
+    }
+    .slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 100%;
+        box-sizing: border-box;
+        height: 100%;
+    }
+    .slide img {
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+        display: block;
+        border-radius: 10px;
+    }
+
+
+    .controls {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+    }
+    .control {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 5px;
+    }
+    .control:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    .bestDraw {
+        display:flex;
+        flex-direction:row;
+        justify-content:center;
+        margin-top:50px;
+    }
+    .drawing_gallery img:hover {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 1);
+        transform: translateY(-3px);
+    }
+    .drawing_gallery  {
+        padding-left: 10px;
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+        flex-wrap:wrap;
+        justify-content: space-between;
+
+    }
+    h3 {
+        color:white;
+    }
+    </style>
+</head>
+<body>
+<h2>Art Gallery</h2>
+<div id="drawing">
+
+    <div class="drawing_gallery">
+        <img src="images/YutaXRika.JPG" style="width:400px;height:auto;">
+        <img src="images/Yuji.JPG" style="width:350px;height:auto;">
+        <img src="images/Kaminari.JPG" style="width:300px;height:auto;">
+        <img src="images/VigilanteDeku.JPG" style="width:400px;height:auto;">
+        <img src="images/TrueSukuna.JPG" style="width:300px;height:auto;">
+        <img src="images/Okarun.JPG" style="width:400px;height:auto;">
+        <img src="images/HollowPurple.JPG" style="width:400px;height:auto;">
+
+
+    </div>
+</div>
+<h3>Best Drawings</h3>
+<div class="bestDraw">
+    <div class="slideshow-container">
+        <div class="slides">
+            <div class="slide"><img src="images/AkazaVSRengoku.jpeg" alt="Slide 1"></div>
+            <div class="slide"><img src="images/GojoXSukuma.jpeg" alt="Slide 2"></div>
+            <div class="slide"><img src="images/DekuJump.jpeg" alt="Slide 3"></div>
+            <div class="slide"><img src="images/ShigarakiXDeku.jpeg" alt="Slide 4"></div>
+            <div class="slide"><img src="images/YutaXRika.jpg" alt="Slide 5"></div>
+
+        </div>
+        <div class="controls">
+            <button class="control prev">&#10094;</button>
+            <button class="control next">&#10095;</button>
+        </div>
+    </div>
+</div>
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelector('.slides');
+    const slideElements = document.querySelectorAll('.slide');
+    const totalSlides = slideElements.length;
+    const intervalTime = 3000;
+
+
+    slides.style.width = `${100 * totalSlides}%`;
+
+    function updateSlidePosition() {
+        slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    function showNextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlidePosition();
+    }
+
+
+    function showPrevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateSlidePosition();
+    }
+
+
+
+
+    let autoSlide = setInterval(showNextSlide, intervalTime);
+
+
+    function restartAutoSlide() {
+        autoSlide = setInterval(showNextSlide, intervalTime);
+    }
+
+
+    document.querySelector('.prev').addEventListener('click', () => {
+        clearInterval(autoSlide);
+        showPrevSlide();
+        restartAutoSlide();
+    });
+
+    document.querySelector('.next').addEventListener('click', () => {
+        clearInterval(autoSlide);
+        showNextSlide();
+        restartAutoSlide();
+    });
+
+
+
+</script>
+
+</body>
+</html>
